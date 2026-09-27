@@ -1,0 +1,121 @@
+﻿{
+  "generated_at": "2026-09-25T00:00:00Z",
+  "source": "specs/PRD.md",
+  "requirements": [
+    {
+      "id": "R-01",
+      "title": "POST /tasks creates a task with title, optional description, optional due_date, optional priority. Defaults: status=todo, priority=medium. Returns created task with id.",
+      "status": "implemented",
+      "test_covered": true,
+      "files": [
+        "app/routers/tasks.py::create_task",
+        "app/schemas.py::TaskCreate",
+        "app/services/task_service.py::validate_title",
+        "app/services/task_service.py::validate_due_date",
+        "app/services/task_service.py::validate_priority"
+      ],
+      "tests": ["tests/test_tasks.py::test_create_task"]
+    },
+    {
+      "id": "R-02",
+      "title": "GET /tasks returns the full list of tasks.",
+      "status": "implemented",
+      "test_covered": true,
+      "files": ["app/routers/tasks.py::list_tasks"],
+      "tests": ["tests/test_tasks.py::test_list_tasks"]
+    },
+    {
+      "id": "R-03",
+      "title": "GET /tasks/{id} returns a single task, or 404 if it does not exist.",
+      "status": "implemented",
+      "test_covered": true,
+      "files": ["app/routers/tasks.py::get_task"],
+      "tests": [
+        "tests/test_tasks.py::test_get_task",
+        "tests/test_tasks.py::test_get_task_not_found"
+      ]
+    },
+    {
+      "id": "R-04",
+      "title": "PATCH /tasks/{id} updates title, description, status, priority, due_date. Validates status/priority enums. Returns 404 if not found.",
+      "status": "implemented",
+      "test_covered": false,
+      "files": [
+        "app/routers/tasks.py::update_task",
+        "app/services/task_service.py::validate_status",
+        "app/services/task_service.py::validate_priority"
+      ],
+      "tests": ["tests/test_tasks.py::test_update_task"]
+    },
+    {
+      "id": "R-05",
+      "title": "DELETE /tasks/{id} removes a task and returns 204. Deleting a non-existent task returns 404.",
+      "status": "implemented",
+      "test_covered": false,
+      "files": ["app/routers/tasks.py::delete_task"],
+      "tests": ["tests/test_tasks.py::test_delete_task"]
+    },
+    {
+      "id": "R-06",
+      "title": "POST /users creates a user with name (1-100 chars) and unique email. Duplicate email returns 409.",
+      "status": "implemented",
+      "test_covered": false,
+      "files": [
+        "app/routers/users.py::create_user",
+        "app/schemas.py::UserCreate"
+      ],
+      "tests": [
+        "tests/test_users.py::test_create_user",
+        "tests/test_users.py::test_create_user_duplicate_email"
+      ]
+    },
+    {
+      "id": "R-07",
+      "title": "GET /users lists all users.",
+      "status": "implemented",
+      "test_covered": false,
+      "files": ["app/routers/users.py::list_users"],
+      "tests": []
+    },
+    {
+      "id": "R-08",
+      "title": "POST /tasks/{id}/assign?user_id={uid} assigns a task to an existing user. Returns 404 if either the task or the user does not exist.",
+      "status": "implemented",
+      "test_covered": false,
+      "files": ["app/routers/tasks.py::assign_task"],
+      "tests": []
+    },
+    {
+      "id": "R-09",
+      "title": "Task title is required, trimmed of whitespace, and limited to 100 characters. Invalid titles are rejected.",
+      "status": "implemented",
+      "test_covered": false,
+      "files": ["app/services/task_service.py::validate_title"],
+      "tests": []
+    },
+    {
+      "id": "R-10",
+      "title": "When a due_date is provided, it must be in the future. Past dates are rejected.",
+      "status": "implemented",
+      "test_covered": false,
+      "files": ["app/services/task_service.py::validate_due_date"],
+      "tests": []
+    },
+    {
+      "id": "R-11",
+      "title": "GET /tasks supports optional query parameters: status (exact match), priority (exact match), q (case-insensitive substring on title). Filters can be combined.",
+      "status": "missing",
+      "test_covered": false,
+      "files": [],
+      "tests": []
+    },
+    {
+      "id": "R-12",
+      "title": "GET /tasks/stats returns task counts grouped by status (todo, in_progress, done) plus a total.",
+      "status": "implemented",
+      "test_covered": false,
+      "files": ["app/routers/tasks.py::get_stats"],
+      "tests": []
+    }
+  ]
+}

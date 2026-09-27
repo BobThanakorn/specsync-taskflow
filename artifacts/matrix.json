@@ -1,0 +1,120 @@
+﻿{
+  "generated_at": "2026-09-25T00:00:00Z",
+  "rows": [
+    {
+      "requirement_id": "R-01",
+      "requirement_title": "POST /tasks creates a task with defaults (status=todo, priority=medium), returns id.",
+      "status": "implemented",
+      "test_covered": true,
+      "code_refs": [
+        "app/routers/tasks.py::create_task",
+        "app/schemas.py::TaskCreate",
+        "app/services/task_service.py::validate_title",
+        "app/services/task_service.py::validate_due_date",
+        "app/services/task_service.py::validate_priority"
+      ],
+      "test_refs": ["tests/test_tasks.py::test_create_task"]
+    },
+    {
+      "requirement_id": "R-02",
+      "requirement_title": "GET /tasks returns the full list of tasks.",
+      "status": "implemented",
+      "test_covered": true,
+      "code_refs": ["app/routers/tasks.py::list_tasks"],
+      "test_refs": ["tests/test_tasks.py::test_list_tasks"]
+    },
+    {
+      "requirement_id": "R-03",
+      "requirement_title": "GET /tasks/{id} returns single task or 404.",
+      "status": "implemented",
+      "test_covered": true,
+      "code_refs": ["app/routers/tasks.py::get_task"],
+      "test_refs": [
+        "tests/test_tasks.py::test_get_task",
+        "tests/test_tasks.py::test_get_task_not_found"
+      ]
+    },
+    {
+      "requirement_id": "R-04",
+      "requirement_title": "PATCH /tasks/{id} updates fields, validates status/priority enums, returns 404 if not found.",
+      "status": "implemented",
+      "test_covered": false,
+      "code_refs": [
+        "app/routers/tasks.py::update_task",
+        "app/services/task_service.py::validate_status",
+        "app/services/task_service.py::validate_priority"
+      ],
+      "test_refs": ["tests/test_tasks.py::test_update_task"]
+    },
+    {
+      "requirement_id": "R-05",
+      "requirement_title": "DELETE /tasks/{id} returns 204; returns 404 for non-existent task.",
+      "status": "implemented",
+      "test_covered": false,
+      "code_refs": ["app/routers/tasks.py::delete_task"],
+      "test_refs": ["tests/test_tasks.py::test_delete_task"]
+    },
+    {
+      "requirement_id": "R-06",
+      "requirement_title": "POST /users creates user with name (1-100 chars) and unique email; duplicate email returns 409.",
+      "status": "implemented",
+      "test_covered": false,
+      "code_refs": [
+        "app/routers/users.py::create_user",
+        "app/schemas.py::UserCreate"
+      ],
+      "test_refs": [
+        "tests/test_users.py::test_create_user",
+        "tests/test_users.py::test_create_user_duplicate_email"
+      ]
+    },
+    {
+      "requirement_id": "R-07",
+      "requirement_title": "GET /users lists all users.",
+      "status": "implemented",
+      "test_covered": false,
+      "code_refs": ["app/routers/users.py::list_users"],
+      "test_refs": []
+    },
+    {
+      "requirement_id": "R-08",
+      "requirement_title": "POST /tasks/{id}/assign?user_id={uid} assigns task to user; 404 if either not found.",
+      "status": "implemented",
+      "test_covered": false,
+      "code_refs": ["app/routers/tasks.py::assign_task"],
+      "test_refs": []
+    },
+    {
+      "requirement_id": "R-09",
+      "requirement_title": "Task title required, trimmed of whitespace, max 100 chars; invalid titles rejected.",
+      "status": "implemented",
+      "test_covered": false,
+      "code_refs": ["app/services/task_service.py::validate_title"],
+      "test_refs": []
+    },
+    {
+      "requirement_id": "R-10",
+      "requirement_title": "due_date must be in the future; past dates are rejected.",
+      "status": "implemented",
+      "test_covered": false,
+      "code_refs": ["app/services/task_service.py::validate_due_date"],
+      "test_refs": []
+    },
+    {
+      "requirement_id": "R-11",
+      "requirement_title": "GET /tasks supports query params: status, priority, q (case-insensitive substring). Filters can be combined.",
+      "status": "missing",
+      "test_covered": false,
+      "code_refs": [],
+      "test_refs": []
+    },
+    {
+      "requirement_id": "R-12",
+      "requirement_title": "GET /tasks/stats returns counts grouped by status plus total.",
+      "status": "implemented",
+      "test_covered": false,
+      "code_refs": ["app/routers/tasks.py::get_stats"],
+      "test_refs": []
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+﻿{
+  "generated_at": "2026-09-25T00:00:00Z",
+  "summary": {
+    "requirements_total": 12,
+    "implemented": 11,
+    "test_covered": 3,
+    "gap_count": 11
+  },
+  "gaps": [
+    {
+      "id": "GAP-001",
+      "type": "missing_feature",
+      "requirement_id": "R-11",
+      "severity": "high",
+      "description": "GET /tasks has no query parameter filtering. list_tasks() in app/routers/tasks.py accepts no parameters; all tasks are always returned regardless of status, priority, or title substring.",
+      "evidence_file": "app/routers/tasks.py::list_tasks",
+      "fix_suggestion": "Add Optional query params status, priority, and q to list_tasks(). Extend the SQL query with WHERE clauses for status and priority (exact match) and LOWER(title) LIKE LOWER('%q%') for title. Also add corresponding tests in tests/test_tasks.py."
+    },
+    {
+      "id": "GAP-002",
+      "type": "missing_test",
+      "requirement_id": "R-04",
+      "severity": "medium",
+      "description": "test_update_task only verifies a happy-path status update. Missing: invalid status value, invalid priority value, and 404 for a non-existent task_id.",
+      "evidence_file": "tests/test_tasks.py::test_update_task",
+      "fix_suggestion": "Add test_update_task_invalid_status, test_update_task_invalid_priority, and test_update_task_not_found in tests/test_tasks.py asserting correct HTTP error codes (422 and 404)."
+    },
+    {
+      "id": "GAP-003",
+      "type": "missing_test",
+      "requirement_id": "R-05",
+      "severity": "medium",
+      "description": "test_delete_task only verifies the 204 happy path. The requirement mandates a 404 when deleting a non-existent task, which has no test coverage.",
+      "evidence_file": "tests/test_tasks.py::test_delete_task",
+      "fix_suggestion": "Add tests/test_tasks.py::test_delete_task_not_found calling DELETE /tasks/9999 and asserting status_code == 404."
+    },
+    {
+      "id": "GAP-004",
+      "type": "missing_test",
+      "requirement_id": "R-06",
+      "severity": "medium",
+      "description": "No test exercises the name length constraint (1-100 chars). Sending an empty name or a 101-char name should be rejected, but is untested.",
+      "evidence_file": "tests/test_users.py",
+      "fix_suggestion": "Add test_create_user_empty_name and test_create_user_name_too_long in tests/test_users.py asserting 422 responses."
+    },
+    {
+      "id": "GAP-005",
+      "type": "missing_test",
+      "requirement_id": "R-07",
+      "severity": "low",
+      "description": "GET /users has no test coverage at all.",
+      "evidence_file": "tests/test_users.py",
+      "fix_suggestion": "Add tests/test_users.py::test_list_users that creates one or more users, calls GET /users, and asserts status 200 and correct list contents."
+    },
+    {
+      "id": "GAP-006",
+      "type": "missing_test",
+      "requirement_id": "R-08",
+      "severity": "high",
+      "description": "POST /tasks/{id}/assign has zero test coverage. The happy path and both 404 branches (unknown task, unknown user) are all untested.",
+      "evidence_file": "app/routers/tasks.py::assign_task",
+      "fix_suggestion": "Add test_assign_task (happy path), test_assign_task_task_not_found, and test_assign_task_user_not_found in tests/test_tasks.py."
+    },
+    {
+      "id": "GAP-007",
+      "type": "missing_test",
+      "requirement_id": "R-09",
+      "severity": "high",
+      "description": "Title validation (required, whitespace-trimming, max 100 chars) has no test coverage despite validate_title() being called on create and update.",
+      "evidence_file": "app/services/task_service.py::validate_title",
+      "fix_suggestion": "Add test_create_task_empty_title, test_create_task_whitespace_title, and test_create_task_title_too_long in tests/test_tasks.py asserting 422/400 responses."
+    },
+    {
+      "id": "GAP-008",
+      "type": "missing_test",
+      "requirement_id": "R-10",
+      "severity": "high",
+      "description": "due_date future-date validation has no test coverage. No test passes a past date to POST /tasks or PATCH /tasks/{id} to verify rejection.",
+      "evidence_file": "app/services/task_service.py::validate_due_date",
+      "fix_suggestion": "Add tests/test_tasks.py::test_create_task_past_due_date submitting a past ISO date and asserting a 422/400 response."
+    },
+    {
+      "id": "GAP-009",
+      "type": "missing_test",
+      "requirement_id": "R-11",
+      "severity": "high",
+      "description": "No tests exist for GET /tasks filtering. Even once the feature is implemented, there are no tests to guard it.",
+      "evidence_file": "tests/test_tasks.py",
+      "fix_suggestion": "After implementing R-11, add test_filter_by_status, test_filter_by_priority, test_filter_by_q, and test_combined_filters in tests/test_tasks.py."
+    },
+    {
+      "id": "GAP-010",
+      "type": "missing_test",
+      "requirement_id": "R-12",
+      "severity": "medium",
+      "description": "GET /tasks/stats is implemented but has zero test coverage. Grouped counts and total are never verified.",
+      "evidence_file": "app/routers/tasks.py::get_stats",
+      "fix_suggestion": "Add tests/test_tasks.py::test_get_stats that creates tasks with various statuses and asserts the correct per-status counts and total."
+    },
+    {
+      "id": "GAP-011",
+      "type": "missing_test",
+      "requirement_id": "R-02",
+      "severity": "low",
+      "description": "test_list_tasks only checks list length (1 item); it does not assert any field values on the returned task object.",
+      "evidence_file": "tests/test_tasks.py::test_list_tasks",
+      "fix_suggestion": "Extend test_list_tasks to assert resp.json()[0]['title'] == 'Task A' and other key fields for field-level coverage."
+    }
+  ]
+}

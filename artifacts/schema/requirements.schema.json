@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SpecSync Requirements Extraction",
+  "type": "object",
+  "required": ["generated_at", "source", "requirements"],
+  "properties": {
+    "generated_at": { "type": "string" },
+    "source": { "type": "string" },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "status", "test_covered", "files"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^R-\\d{2}$" },
+          "title": { "type": "string" },
+          "status": { "enum": ["implemented", "missing"] },
+          "test_covered": { "type": "boolean" },
+          "files": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Implementation files (file:function) for this requirement"
+          },
+          "tests": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Test files (file::test_name) covering this requirement"
+          }
+        }
+      }
+    }
+  }
+}

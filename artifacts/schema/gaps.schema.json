@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SpecSync Gap Report",
+  "type": "object",
+  "required": ["generated_at", "summary", "gaps"],
+  "properties": {
+    "generated_at": { "type": "string" },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "requirements_total": { "type": "integer" },
+        "implemented": { "type": "integer" },
+        "test_covered": { "type": "integer" },
+        "gap_count": { "type": "integer" }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "requirement_id", "severity", "description", "fix_suggestion"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "enum": ["missing_test", "missing_feature", "doc_drift"] },
+          "requirement_id": { "type": "string" },
+          "severity": { "enum": ["low", "medium", "high"] },
+          "description": { "type": "string" },
+          "evidence_file": { "type": "string" },
+          "fix_suggestion": { "type": "string" }
+        }
+      }
+    }
+  }
+}

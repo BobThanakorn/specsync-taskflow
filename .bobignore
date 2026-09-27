@@ -1,0 +1,10 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+taskflow.db
+.git/
+dashboard/
+bob_sessions/
+prompts/
