@@ -42,6 +42,12 @@ whole pipeline.
 ## Repo
 https://github.com/BobThanakorn/specsync-taskflow
 
+## Application URL (live demo)
+https://bobthanakorn.github.io/specsync-taskflow/
+
+## Cover image
+`submission/cover.png` (1280×720, PNG) — ready to upload.
+
 ## Demo video
 (Paste the YouTube link after recording.)
 
