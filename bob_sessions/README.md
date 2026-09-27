@@ -1,19 +1,22 @@
 # bob_sessions — IBM Bob IDE usage evidence (required for judging)
 
-Store screenshots of the **task session consumption summary** for every task you run in Bob IDE.
+Store screenshots of the **task session consumption summary** for every task you
+run in Bob IDE.
 
 ## How to capture
-1. After a task finishes, click the task header in Bob IDE.
-2. The "task session consumption summary" appears — screenshot just that panel.
-3. Save as **PNG** using this naming convention:
+1. In the Bob IDE chat interface, select **Tasks** to open the task list.
+2. Select the task related to this submission (the whole pipeline was run in one
+   Agent-mode session: analyze → fix gaps → update docs).
+3. Click the **task header** — the "task session consumption summary" is displayed.
+4. Screenshot that panel. If it is longer than one screen, take several screenshots.
+5. Save as **PNG** with clear names, e.g.:
 
 ```
-bob_sessions/task-01-analyze-specs.png
-bob_sessions/task-02-fix-gaps.png
-bob_sessions/task-03-update-docs.png
+bob_sessions/specsync_session_summary_01.png
+bob_sessions/specsync_session_summary_02.png
 ```
 
 ## Checklist
-- [ ] task-01: extract requirements + traceability matrix (Agent mode, parallel, subagents)
-- [ ] task-02: generate tests + implement search/filter
-- [ ] task-03: update docs (README/ADR/API docs)
+- [ ] session summary screenshot(s) captured (single session covering all three phases)
+- [ ] the artifacts JSON (`artifacts/*.json`) match the session output
+- [ ] bob_sessions/ is committed in the final repository
