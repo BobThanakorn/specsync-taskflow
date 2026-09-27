@@ -1,11 +1,11 @@
-# bob_sessions — หลักฐานการใช้ IBM Bob IDE (required for judging)
+# bob_sessions — IBM Bob IDE usage evidence (required for judging)
 
-เก็บ screenshots ของ **task session consumption summary** ทุก task ที่รันใน Bob IDE
+Store screenshots of the **task session consumption summary** for every task you run in Bob IDE.
 
-## วิธี capture
-1. หลัง task รันเสร็จ → คลิก task header ใน Bob IDE
-2. จะเห็น "task session consumption summary" → screenshot เฉพาะส่วนนี้
-3. บันทึกเป็น **PNG** ชื่อไฟล์ตามรูปแบบ:
+## How to capture
+1. After a task finishes, click the task header in Bob IDE.
+2. The "task session consumption summary" appears — screenshot just that panel.
+3. Save as **PNG** using this naming convention:
 
 ```
 bob_sessions/task-01-analyze-specs.png
@@ -14,6 +14,6 @@ bob_sessions/task-03-update-docs.png
 ```
 
 ## Checklist
-- [ ] task-01: สกัด requirement + traceability matrix (Agent mode, parallel, subagents)
-- [ ] task-02: เจน test + implement search/filter
-- [ ] task-03: อัปเดต docs (README/ADR/API docs)
+- [ ] task-01: extract requirements + traceability matrix (Agent mode, parallel, subagents)
+- [ ] task-02: generate tests + implement search/filter
+- [ ] task-03: update docs (README/ADR/API docs)

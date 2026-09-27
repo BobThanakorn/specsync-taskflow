@@ -1,6 +1,6 @@
 # Bob Task 2 — Close the gaps: tests + missing feature
 
-รันหลังจาก task 1 เสร็จและมี artifacts/gaps.json แล้ว
+Run after task 1 finishes and artifacts/gaps.json exists.
 
 ```
 @artifacts/gaps.json @specs/PRD.md
@@ -23,4 +23,4 @@ Use Agent mode. Keep changes minimal and idiomatic. Do not change existing
 business logic unless a test proves it wrong.
 ```
 
-เมื่อเสร็จ: screenshot consumption summary → `bob_sessions/task-02-fix-gaps.png`
+When done: screenshot the task session consumption summary → `bob_sessions/task-02-fix-gaps.png`

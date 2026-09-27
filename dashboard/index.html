@@ -112,8 +112,8 @@
     </div>
     <div class="stats">
       <div class="stat"><div class="num green" data-target="12">0</div><div class="lbl">/ 12 requirements implemented</div></div>
-      <div class="stat"><div class="num blue" data-target="92">0</div><div class="lbl">% requirements covered by tests</div></div>
-      <div class="stat"><div class="num red" data-target="5">0</div><div class="lbl">gaps found &amp; closed</div></div>
+      <div class="stat"><div class="num blue" data-target="100">0</div><div class="lbl">% requirements covered by tests</div></div>
+      <div class="stat"><div class="num red" data-target="11">0</div><div class="lbl">gaps found &amp; closed</div></div>
       <div class="stat"><div class="num yellow" data-target="5">0</div><div class="lbl">minutes to re-run the full analysis</div></div>
     </div>
   </section>
@@ -180,26 +180,29 @@ const EMBEDDED = {
     {id:"R-01",title:"Create task",status:"implemented",test_covered:true,files:["app/routers/tasks.py::create_task"]},
     {id:"R-02",title:"List tasks",status:"implemented",test_covered:true,files:["app/routers/tasks.py::list_tasks"]},
     {id:"R-03",title:"Get task by id",status:"implemented",test_covered:true,files:["app/routers/tasks.py::get_task"]},
-    {id:"R-04",title:"Update task",status:"implemented",test_covered:true,files:["app/routers/tasks.py::update_task"]},
+    {id:"R-04",title:"Update task (validated)",status:"implemented",test_covered:true,files:["app/routers/tasks.py::update_task"]},
     {id:"R-05",title:"Delete task",status:"implemented",test_covered:true,files:["app/routers/tasks.py::delete_task"]},
     {id:"R-06",title:"Create user",status:"implemented",test_covered:true,files:["app/routers/users.py::create_user"]},
-    {id:"R-07",title:"List users",status:"implemented",test_covered:false,files:["app/routers/users.py::list_users"]},
-    {id:"R-08",title:"Assign task to user",status:"implemented",test_covered:false,files:["app/routers/tasks.py::assign_task"]},
-    {id:"R-09",title:"Title validation",status:"implemented",test_covered:false,files:["app/services/task_service.py::validate_title"]},
-    {id:"R-10",title:"Future due-date validation",status:"implemented",test_covered:false,files:["app/services/task_service.py::validate_due_date"]},
-    {id:"R-11",title:"Search & filter tasks",status:"missing",test_covered:false,files:[]},
-    {id:"R-12",title:"Task statistics",status:"implemented",test_covered:false,files:["app/routers/tasks.py::get_stats"]}
+    {id:"R-07",title:"List users",status:"implemented",test_covered:true,files:["app/routers/users.py::list_users"]},
+    {id:"R-08",title:"Assign task to user",status:"implemented",test_covered:true,files:["app/routers/tasks.py::assign_task"]},
+    {id:"R-09",title:"Title validation",status:"implemented",test_covered:true,files:["app/services/task_service.py::validate_title"]},
+    {id:"R-10",title:"Future due-date validation",status:"implemented",test_covered:true,files:["app/services/task_service.py::validate_due_date"]},
+    {id:"R-11",title:"Search & filter tasks",status:"implemented",test_covered:true,files:["app/routers/tasks.py::list_tasks"]},
+    {id:"R-12",title:"Task statistics",status:"implemented",test_covered:true,files:["app/routers/tasks.py::get_stats"]}
   ],
   gaps: [
-    {id:"GAP-01",type:"missing_feature",req:"R-11",desc:"Search/filter (status, priority, q) is specified in the PRD but not implemented in list_tasks.","fix:"},
-    {id:"GAP-02",type:"missing_test",req:"R-07",desc:"GET /users exists but has no test coverage.","fix:":""},
-    {id:"GAP-03",type:"missing_test",req:"R-08",desc:"Task assignment endpoint has no tests, including its 404 paths.","fix:":""},
-    {id:"GAP-04",type:"missing_test",req:"R-09 · R-10",desc:"Validation rules (title length, future due date) are untested.","fix:":""},
-    {id:"GAP-05",type:"doc_drift",req:"R-12 · docs",desc:"README lists only 3 endpoints, states a wrong Python version, and claims stats are 'planned'.","fix:":""}
+    {id:"GAP-01",type:"missing_feature",req:"R-11",desc:"Search/filter (status, priority, q) was in the PRD but missing from list_tasks. Bob implemented it with 6 new tests.","fix:"},
+    {id:"GAP-02",type:"missing_test",req:"R-04 · R-05",desc:"PATCH/DELETE 404 paths and enum validation were untested. Bob added 5 tests.","fix:":""},
+    {id:"GAP-03",type:"missing_test",req:"R-07 · R-08",desc:"List users and task assignment had zero coverage, incl. 404 branches. Bob added 5 tests.","fix:":""},
+    {id:"GAP-04",type:"missing_test",req:"R-09 · R-10 · R-06",desc:"Validation rules (title, due date, user name) were untested. Bob added 6 tests.","fix:":""},
+    {id:"GAP-05",type:"missing_test",req:"R-02 · R-12",desc:"Field-level list checks and the stats endpoint had no coverage. Bob added 4 tests.","fix:":""},
+    {id:"GAP-06",type:"doc_drift",req:"docs",desc:"README claimed wrong Python version, listed only 3 endpoints, and called stats 'planned'. Bob rewrote it + added docs/api.md and ADR-002.","fix:":""}
   ],
   bars: [
     {label:"Requirements implemented",before:11,after:12,unit:"/ 12"},
-    {label:"Requirements covered by tests",before:50,after:92,unit:"%"},
+    {label:"Requirements covered by tests",before:25,after:100,unit:"%"},
+    {label:"Test suite size",before:8,after:31,unit:" tests"},
+    {label:"Line coverage (pytest --cov)",before:0,after:96,unit:"%"},
     {label:"Documentation drift points",before:3,after:0,unit:"found",invert:true}
   ]
 };

@@ -1,6 +1,6 @@
 # Bob Task 3 — Fix documentation drift
 
-รันหลังจาก task 2 เสร็จ
+Run after task 2 finishes.
 
 ```
 @README.md @specs/ADR-001.md @specs/PRD.md @app
@@ -21,4 +21,4 @@ README.md. Fix every documentation drift:
 Save the files and print a bullet summary of what was updated and why.
 ```
 
-เมื่อเสร็จ: screenshot consumption summary → `bob_sessions/task-03-update-docs.png`
+When done: screenshot the task session consumption summary → `bob_sessions/task-03-update-docs.png`

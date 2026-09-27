@@ -1,7 +1,8 @@
 import sqlite3
 from datetime import datetime
+from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from app.db import get_db
 from app.schemas import TaskCreate, TaskOut, TaskUpdate
@@ -45,8 +46,28 @@ def create_task(payload: TaskCreate, db: sqlite3.Connection = Depends(get_db)):
 
 
 @router.get("", response_model=list[TaskOut])
-def list_tasks(db: sqlite3.Connection = Depends(get_db)):
-    rows = db.execute("SELECT * FROM tasks ORDER BY id").fetchall()
+def list_tasks(
+    status: Optional[str] = Query(default=None),
+    priority: Optional[str] = Query(default=None),
+    q: Optional[str] = Query(default=None),
+    db: sqlite3.Connection = Depends(get_db),
+):
+    sql = "SELECT * FROM tasks"
+    conditions: list[str] = []
+    params: list = []
+    if status is not None:
+        conditions.append("status = ?")
+        params.append(status)
+    if priority is not None:
+        conditions.append("priority = ?")
+        params.append(priority)
+    if q is not None:
+        conditions.append("LOWER(title) LIKE LOWER(?)")
+        params.append(f"%{q}%")
+    if conditions:
+        sql += " WHERE " + " AND ".join(conditions)
+    sql += " ORDER BY id"
+    rows = db.execute(sql, params).fetchall()
     return [row_to_task(r) for r in rows]
 
 

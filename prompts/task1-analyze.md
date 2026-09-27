@@ -1,6 +1,6 @@
 # Bob Task 1 — Analyze specs & build traceability matrix
 
-คัดลอกทั้ง block ลงใน Bob IDE (Agent mode), ก่อนรันเปลี่ยน directory ไปที่โฟลเดอร์โปรเจกต์นี้แล้ว
+Copy the whole block into Bob IDE (Agent mode). Make sure the workspace is this project folder before running.
 
 ```
 @specs/PRD.md @specs/ADR-001.md
@@ -27,4 +27,4 @@ End your reply with a markdown summary table: requirement id, status,
 test_covered, gap type.
 ```
 
-เมื่อเสร็จ: screenshot task session consumption summary → `bob_sessions/task-01-analyze-specs.png`
+When done: screenshot the task session consumption summary → `bob_sessions/task-01-analyze-specs.png`
